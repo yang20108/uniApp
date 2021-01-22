@@ -14,6 +14,59 @@
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/csp/conditionCreate",
+			"style": {
+				"navigationBarTitleText": "工况创建"
+			}
+		}, {
+			"path": "pages/csp/conditionList",
+			"style": {
+				"navigationBarTitleText": "工况列表"
+			}
+		}, {
+			"path": "pages/sztd/pointsSelect",
+			"style": {
+				"navigationBarTitleText": "工点选择"
+			}
+		}, {
+			"path": "pages/csp/conditionAdd",
+			"style": {
+				"navigationBarTitleText": "工况检查"
+			}
+		}, {
+			"path": "pages/csp/conditionShowInfo",
+			"style": {
+				"navigationBarTitleText": "工况详情"
+			}
+		}, {
+			"path": "pages/csp/condition",
+			"style": {
+				"navigationBarTitleText": "工况录入",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							// 注意"text": "&#xe60e"改成"\ue60e"，"fontSrc": "/static/ttf.ttf" APP-PLUS和H5都兼容
+							"text": "\ue61b",
+							"color": "#FFFFFF",
+							"fontSrc": "/static/ttf/iconfont.ttf",
+							"fontSize": "22px"
+						}]
+					}
+				}
+			}
+		}, {
+			"path": "pages/sztd/checkUpdate",
+			"style": {
+				"navigationBarTitleText": "检测更新",
+				"transparentTitle": "always"
+			}
+		}, {
+			"path": "pages/sztd/personnelInfo",
+			"style": {
+				"navigationBarTitleText": "人员信息"
+			}
+		}, {
 			"path": "pages/sztd/setting",
 			"style": {
 				"navigationBarTitleText": "设置服务器地址",
