@@ -1,0 +1,119 @@
+Flex布局（小程序Flex布局）
+参考：
+http://www.hcoder.net/tutorials/info_183.html
+https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+https://www.cnblogs.com/nuannuan7362/p/5823381.html
+https://www.cnblogs.com/qisi007/p/9640287.html
+
+2009年，W3C提出了Flex布局，可以简便、完整、响应式地实现各种页面布局。
+已经得到了所有浏览器的支持，发布的小程序则广泛使用了flx布局，Flex布局将成为未来布局的首选方案。
+Flex布局是什么？
+Flex是Flexible Box的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。任何一个容器都可以指定为Flex布局。
+.box{display: flex;}
+行内元素也可以使用Flex布局。
+.box{display: inline-flex;}
+Webkit内核的浏览器，必须加上-webkit前缀。
+.box{ display:-webkit-flex; display:flex;}
+注意，设为Flex布局以后，子元素的float、clear和vertical-align属性将失效。
+基本概念：采用Flex布局的元素，称为Flex容器（flex container）。
+它的所有子元素自动成为容器成员，称为Flex项目（flex item），简称"项目"。
+默认情况下如果子元素超出外层，子项目将自动缩小以适应外层。
+示例：
+<template>
+	<view class="box">
+		<view class="sons"></view>
+		<view class="sons"></view>
+		<view class="sons"></view>
+		<view class="sons"></view>
+	</view>
+</template>
+<style>
+	*{margin:0px; padding:0px;}
+	.box{display:flex; width:500px; border:1px solid #4CD964; overflow:hidden;}
+	.sons{background:#900; margin:8px; width:200px; height:88px;}
+</style>
+
+容器的属性:
+flex-direction属性决定主轴的方向（即项目的排列方向）
+	取值：
+	row：主轴与行内轴方向作为默认的书写模式。即横向从左到右排列（左对齐）。
+	row-reverse： 对齐方式与row相反(倒序、右对齐)。
+	column： 主轴与块轴方向作为默认的书写模式。即纵向从上往下排列（顶对齐）。
+	column-reverse： 对齐方式与column相反。
+flex-wrap默认情况下，项目都排在一条线。如果一条轴线排不下，如何换行。
+	取值：
+	nowrap：flex容器为单行。该情况下flex子项可能会溢出容器
+	wrap：flex容器为多行。该情况下flex子项溢出的部分会被放置到新行，子项内部会发生断行
+	wrap-reverse： 反转 wrap 排列。
+flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。
+justify-content属性定义了项目在主轴上的对齐方式。
+	取值：
+	flex-start 	默认值。项目位于容器的开头
+	flex-end 	项目位于容器的结尾
+	center 	项目位于容器的中心
+	space-between 	项目位于各行之间留有空白的容器内
+	space-around 	项目位于各行之前、之间、之后都留有空白的容器内
+align-items属性定义项目在交叉轴上如何对齐。
+	取值：
+	stretch    默认值。项目被拉伸以适应容器
+	center     项目位于容器的中心
+	flex-start 项目位于容器的开头
+	flex-end   项目位于容器的结尾
+	baseline   项目位于容器的基线上
+align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+	取值：
+	flex-start：与交叉轴的起点对齐。
+	flex-end：与交叉轴的终点对齐。
+	center：与交叉轴的中点对齐。
+	space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。
+	space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。
+	stretch（默认值）：轴线占满整个交叉轴。
+	
+项目的属性
+order属性
+作用：定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+语法：.item {order:整数;}
+<view class="box">
+    <view class="sons" style="order:2;">1</view>
+    <view class="sons" style="order:4;">2</view>
+    <view class="sons" style="order:3;">3</view>
+    <view class="sons" style="order:1;">4</view>
+</view>
+flex-grow属性
+作用：定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+语法：.item{ flex-grow:数值; /* default 0 */ }
+<view class="box">
+    <view class="sons" style="order:2;">1</view>
+    <view class="sons" style="order:4;">2</view>
+    <view class="sons" style="order:3;">3</view>
+    <view class="sons" style="order:1; flex-grow:1.5;">4</view>
+</view>
+flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+语法：.item {flex-shrink: <number>; /* default 1 */}
+<template>
+	<view class="box">
+		<view class="sons">1</view>
+		<view class="sons">2</view>
+		<view class="sons">3</view>
+		<view class="sons" style="flex-shrink:1.5;">4</view>
+	</view>
+</template>
+<style>
+	*{margin:0px; padding:0px;}
+	.box{display:flex; width:500px; height:500px; border:1px solid #4CD964; flex-flow:row nowrap; align-items: flex-start; align-content: flex-end;}
+	.sons{background:#900; margin:8px; width:300px; height:100px;}
+</style>
+flex-basis属性浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。
+语法：.item {flex-basis: <length> | auto; /* default auto */}
+flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+语法：.item {flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ]}
+align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。
+默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+语法：.item {align-self: auto | flex-start | flex-end | center | baseline | stretch;}
+<view class="box">
+    <view class="sons">1</view>
+    <view class="sons">2</view>
+    <view class="sons">3</view>
+    <view class="sons" style="flex-shrink:1.5; align-self:flex-end;">4</view>
+</view>
+

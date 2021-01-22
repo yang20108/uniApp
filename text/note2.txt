@@ -1,0 +1,230 @@
+》1 var, const和let区别
+描述：
+var 定义的变量可以修改，如果不初始化会输出undefined，不会报错。
+const 定义常量不可以修改，在块作用域里访问，而且必须初始化。
+let 是块级作用域由 { } 包括，函数内部使用let定义后，对函数外部无影响。
+语法：
+示例：
+注意：
+参考：
+
+》2 ES7 async & await解决回调地狱（网络请求时需要实施得到数据）
+描述：
+async关键字表示异步
+表明当前函数是异步函数，async函数返回值是Promise对象，状态为resolved，可以直接使用then()方法进行调用，执行失败进入catch()。
+任何async函数都会默认返回promise。
+语法：
+async function asyncFun() {
+	var awaitData = await this.getAwaitData("参数"); // await 执行的代码块this.getAwaitData
+	// 执行awaitData代码结果
+	...
+} 
+描述：
+await关键字是async wait异步等待。只能在使用async定义的函数里面使用
+就是说，必须等所有await函数执行完毕后，才会告诉promise成功了还是失败了，执行then或者catch。
+语法：
+getAwaitData("参数") {
+	// return '代码执行结果';
+	return new Promise(res => {
+		uni.request({
+			url: '',
+			data: {},
+			success: succ => {
+				res(succ.data);
+			},
+			fail: e => {
+				res(e);
+			}
+		});
+	});
+}
+示例：查看本项目SZTD -> 施工工况 -> 数据提交
+注意：
+参考：https://juejin.im/post/5b1ffff96fb9a01e345ba704
+
+》3 watch的3种用法
+描述：第一种简单用法，直接监听属性名称，当每次监听到propertyA值发生改变时，执行函数。参数非必填
+语法：
+watch: {
+	property("参数"): {
+		// 函数执行
+	}
+}
+示例：
+watch: {
+	propertyA(newVal, oldVal) {
+		// 函数执行
+	}
+}
+描述：第二种使用immediate和handler，当值第一次绑定的时候，不会执行监听函数，只有值发生改变才会执行。如果需要在最初绑定值的时候也执行函数，则就需要用到immediate属性。
+语法：
+示例：
+watch: {
+	propertyA: {
+		handler(newVal, oldVal) {
+			// 函数执行
+		},
+		immediate: true
+	}
+}
+描述：第三种deep监听一个对象内部属性的改变，对对象进行深度监听。
+语法：
+示例：
+watch: {
+	object: {
+		handler(newVal, oldVal) {
+			// 函数执行
+		},
+		immediate: true,
+		deep: true
+	}
+}
+或者：
+watch: {
+	'object.propertyA': {
+		handler(newVal, oldVal): {
+			// 函数执行
+		},
+		immediate: true
+	}
+}
+注意：
+参考：https://www.cnblogs.com/shiningly/p/9471067.html
+https://www.jianshu.com/p/b70f1668d08f
+
+》4 prop, emit, ref
+描述：
+语法：
+示例：
+注意：
+参考：查看本项目"./pages/mypages/pageParent"页面
+
+》5 $emit回传参数
+描述：
+语法：
+示例：
+<zi-view @backClick=getClick>父层级<zi-view>
+<script>
+	export default {
+		...
+		methods: {
+			getClick: function(obj) {
+				console.log(object);
+			}
+		}
+	}
+<script>
+// 组件调用参考第4点
+<view @click="onClick(Object)">子组件</view>
+<script>
+	export default {
+		name: 'zi-view',
+		porps: {
+			...
+		}
+		...
+		methods: {
+			onClick: function(object) {
+				this.$emit("backClick", object);
+			}
+		}
+	}
+<script>
+注意：父层级回调子层级$emit事件，有参数不要添加"()"括号，参数会被值空。正确写法参考下面示例
+参考：
+
+》6 scss使用
+描述：
+vue文件中<style lang="scss"></style>节点中出现lang="scss"，表示css样式使用了scss语言
+scss是一种css预处理语言：
+	编译后形成正常的css文件，为css增加一些编程特性
+	无需考虑浏览器的兼容性（完全兼容css3）
+	让css更加简洁、适应性更强，可读性更佳，更易于代码的维护等诸多好处。
+	文件扩展名不同，文件后缀分别是".scss"和".sass"
+新建".scss"文件，这里"app.scss"表示，内容如下
+	$font-color: #303133; // 字体颜色
+	$border-color: #DCDFE6; // 边框颜色
+语法：
+示例：
+.view {
+	height: 56upx;
+	line-height: 56upx;
+	text-align: center;
+	font-size: 28upx;
+	color:$font-color;
+	border-radius: 20px;
+	background: rgba(255,255,255,.6);
+}
+注意：
+<style lang="scss"></style>节点中记得添加"lang='scss'"，否则样式不生效
+参考：
+https://blog.csdn.net/zhouzuoluo/article/details/81010331
+https://uniapp.dcloud.io/collocation/uni-scss
+
+》7 HbuilderX离线打包Android
+描述：
+使用新版本5+SDK创建最简Android原生工程（Android studio）：
+语法：
+示例：
+如何在AndroidStudio项目中导入aar包并使用：
+点击【File > New > New Module】
+选择【Import .JAR/.AAR Package】> 点击【Next】
+选择或输入.arr文件所在路径并点击【finish】
+点击【File > Project Structure】
+在左侧菜单【Modules/Dependencies】栏目下，选择需要依赖.aar包的module（比如通常为app）.
+点击【+】添加 > 选择【Module Dependency】 > 选择导入的aar包 > 【ok】确定
+注意：
+参考：https://ask.dcloud.net.cn/article/13232
+
+
+
+》8 给对象添加属性/删除属性
+描述：
+语法：
+this.$set(Object, 属性, 值);
+this.$delete(Object, 属性);
+示例：
+var obj = {name: 'zhangs', sex: '男'}
+this.$set(obj, 'age', 23);
+// obj = {name: 'zhangs', sex: '男', age: 23}
+this.$delete(obj, 'sex');
+// obj = {name: 'zhangs'}
+注意：
+参考：
+
+》9 onBackPress事件
+描述：
+return true;可以阻止onBackPress事件
+语法：
+示例：
+注意：return false;不生效
+参考：
+
+》10 picker和checkbox组件
+描述：
+有2个或多个以上picker和checkbox组件时，怎么区分当前选中属于哪个集合？
+picker可以动态给每个数组添加一个对应得下标方便区分
+语法：
+示例：
+var objList = [{"id":"string","list":["itme","item2","item3"],"value":"","index":0},{"id":"number","list":[1,2,3],"value":"","index":0}]
+// picker使用id动态绑定对象"id"属性，并使用"index"属性用于标识下标
+<view v-for="(obj, objKey) in objList" :key="objKey">
+	<picker mode="selector" :id="obj.id" :value="obj.index" :range="obj.list" @change="">{{obj.list[obj.index]}}</picker>
+</view>
+// checkbox使用id动态绑定对象"id"属性，并使用value动态绑定list元素
+<view v-for="(obj, objKey) in objList" :key="objKey">
+	<checkbox-group :id="obj.id" @change="">
+		<view v-for="(list, listKey) in obj.list" :key="listKey">
+			<checkbox :value="list" :checked="list.checked">{{ list }}</checkbox>
+		</view>
+	</checkbox-group>
+</view>
+注意：picker和checkbox的@change事件会自带回调函数。不可传参
+参考：
+
+》11
+描述：
+语法：
+示例：
+注意：
+参考：

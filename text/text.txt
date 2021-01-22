@@ -1,0 +1,361 @@
+--------------------------------------------------
+》
+》es6阮一峰 ES6笔记上：https://blog.csdn.net/qq_35036255/article/details/80344748
+》
+》
+》android离线打包
+》uni-app 支持离线打包，详细参考相关文档：
+https://ask.dcloud.net.cn/article/103
+https://ask.dcloud.net.cn/article/35139 
+https://ask.dcloud.net.cn/article/35379
+》
+》
+》阿里字体图标库前缀通配符 text[class*="tm-"]
+{	
+	  font-family: "tmicon" !important;
+	  font-style: normal;
+	  -webkit-font-smoothing: antialiased;
+	  -moz-osx-font-smoothing: grayscale;
+}
+》uniapp抓拍功能 人脸采集
+》app指纹解锁
+》app手势解锁延迟问题
+》
+
+
+--------------------------------------------------
+VBS语法教程：https://www.cnblogs.com/veggiegfei/p/5943260.html
+五款实用的CSS辅助开发工具：http://www.chinaz.com/free/2012/1008/277420.shtml
+搞笑GIF：http://hnbang.com/
+桌面临时文件保存路径：C:\Users\Administrator\AppData\Roaming\Kingsoft\office6\backup\
+Egret白鹭H5小游戏开发入门：http://www.cnblogs.com/chengguanhui/p/5800240.html
+nodejs安装：https://www.cnblogs.com/goldlong/p/8027997.html
+腾讯文档在线共享：https://docs.qq.com/desktop/
+2019年最新经典web前端面试题：
+https://segmentfault.com/a/1190000018225708?utm_source=tag-newest
+https://www.jianshu.com/p/eb0f269098d5
+https://www.jianshu.com/p/b034663019a9
+https://segmentfault.com/a/1190000018426354?utm_source=tag-newest
+https://baijiahao.baidu.com/s?id=1624047253519943985&wfr=spider&for=pc
+https://juejin.im/post/5c9216716fb9a070ef60a011
+Github地址https://github.com/yisainan/web-interview
+
+
+-------------------------基座和app问题排查步骤-------------------------
+app找不到页面、转圈、打包未添加**模块、启动没反应等问题？
+解决方案：
+1.先Fiddler 抓包看看是否有接口网络请求，
+2.平台有没有最新资源包，
+3.再看资源包中的manifest.json文件与基座中mplatform\PandoraResource\publish\Pandora\apps\mplatform\www\manifest.json文件保持一致。
+备注：Android Studio控制台Log输出exception过滤
+
+-------------------------HbuildX之uniapp开发-------------------------
+HBuilderX连接手机时不显示（包括IOS），关掉HBuilderX重新打开。
+uniapp官网：https://uniapp.dcloud.io/
+uni-app运行环境版本和编译器版本不一致的问题：http://ask.dcloud.net.cn/article/35627
+
+-------------------------Android相关-------------------------
+Java并发编程-阻塞队列(BlockingQueue)的实现原理  http://blog.csdn.net/chenchaofuck1/article/details/51660119
+5分钟搞定android混淆  http://www.jianshu.com/p/f3455ecaa56e
+强大的BaseRecyclerViewAdapterHelper使用  http://blog.csdn.net/qq_37293612/article/details/54943910
+Android 客户端与PC服务端socket通信接收与发送图片(终结者) https://juejin.im/post/5a2271da6fb9a0451e3f9c71
+React Native开发环境：http://reactnative.cn/docs/0.50/getting-started.html
+后台服务：http://blog.csdn.net/kuangjp/article/details/9021739
+wifi开发：http://smallwoniu.blog.51cto.com/3911954/1334951/
+http://smallwoniu.blog.51cto.com/3911954/1338618
+泡在网上的日子：http://www.jcodecraeer.com/
+数据库之greendao 3.0：
+https://juejin.im/post/5958fe70f265da6c49777c94
+http://blog.csdn.net/u012702547/article/details/52226163
+CSS3开发文档：https://segmentfault.com/a/1190000018585523?utm_source=tag-newest
+移动端页面布局：https://www.cnblogs.com/mracale/p/7170385.html
+Android Studio安装：https://blog.csdn.net/qq_23599965/article/details/80910202
+Android Studio打包APK文件步骤的具体方法介绍：https://baijiahao.baidu.com/s?id=1614367372473559833&wfr=spider&for=pc
+
+》Android Studio中使用dos命令导出手机上APP本地数据库数据
+cmd打开Dos命令
+adb shell
+su
+chmod 777 /data
+chmod 777 /data/data
+chmod 777 /data/data/包名
+chmod 777 /data/data/包名/databases
+chmod 777 /data/data/包名/databases/**.db
+注意：找到.db文件也需要添加权限，使用数据线连接
+》Intent传值
+  List<Object> objectList= new ArrayList<>();
+  Intent intent = new Intent(A.this, B.class);
+  Bundle bundle = new Bundle();
+  bundle.putSerializable("object", obj); // objList.get(i)
+  bundle.putSerializable("obj_lists", (Serializable) objectList);
+  bundle.putString("pkid",pkid);
+  intent.putExtra("objectList", (Serializable) objectList);
+  intent.putExtras(bundle);
+  startActivity(intent);
+》Intent获取
+  User user= (User)getIntent().getSerializableExtra("object");
+  List<Object> objectList = (List<Object>) getIntent().getSerializableExtra("objectList");
+》语音开发
+》客户app实施下载更新  
+》客户app实施更新图像
+》Android Studio打包aar文件步骤：
+点击右侧Gradle
+找到要打包的model
+Tasks > build > assemble（双击编译打包）
+在该modle下的build > outputs > aar即可
+》同步SVN
+打开文件位置 ，把项目需要同步的文件右键 > File Path > 选择文件
+》Android Studio下载某插件
+Setting > Plugins > Browse repositories插件搜索 > Install下载 > Restart重启
+》电脑连接手机数据线运行改成WIFI运行
+注意：同一局域网下支持
+ADB WIFI插件下载，Tools > Android > ADB WIFI > ADB USB to WIFI
+》更换项目签名文件
+Project Structure(ctrl + alt + shift + s) > app > Signing > Stare File
+》下载和手机对应的SDK
+SDK Manager(一个下载形状的图标) > Appearacnce & Behavior > System Settings > Android SDK > SDK Platforms选择和手机对应的SDK > OK
+》给Android Studio设置背景主题
+Setting > Appearance > Theme[Darcula]
+》草料二维码生成器
+》Butterknife注解插件
+Android Butterknife Selezng下载
+使用方法：Alt + Insert > 选择带有鸡蛋图像的 > Generate Butterknife Injections > 自由选择
+最后在App下的build.gradle文件配置：
+dependencies {
+	compile 'com.jakewhartom:butterknife:7.0.1'
+}
+》设置class模板信息
+File > Setting > Editor > File and Code Templates > Templates > Class > Includes > File Header > 填写模板
+》APP打包APK文件
+Build > Generate Signed Apk > 选中jks签名，没有创建一个 > 填写密码 & APK包名密码 > OK
+》Android项目添加RecyclerView
+Project Structure > 选中Modules:app > Dependencies > "+"选择第一个Libray ... 搜索RecyclerView > OK添加
+》Android Studio配置全局变量
+在计算机环境变量Path中添加 > 选择Android Studio安装目录下的SDK目录下的platform目录下的tools绝对路径
+》给java文件设置字符编码级
+File > Setting > Editor > File Encodings > IDE Encoding:UIF-8 Project Encoding:UTF-8
+选中项目中gradle文件夹 > Default encoding for properties files:<System Default>(now GBK) > 勾选Transparent native-to-ascli conversion > Apply > OK
+》Android项目中添加Module
+File > New > Import Module > 选择Module > Finsh
+项目右键Open Module Settings > Modules中选择App > 最后一个Dependencies点击'+'号 > 第三个Module dependency选择刚加的Module > OK
+》图片取色值技巧
+把图片用浏览器打开 > F12 > 在样式元素中选择color，没有添加一个 > 点击‘㠙笔图标，放在颜色上就可以拿到色值了
+》Android Studio特效粒子插件
+File > Settings > Plugins > 搜索Power ModeII > 安装，重启
+设置效果：Settings > Appearance & Behavior > Power ModeII > 1.EN 2.PA 5.VIS 勾选
+》设置AS启动后不打开项目
+File > Settings > Appearance & Behavior > System Settings > 去掉勾选Reopen last project on startup
+》AS工具添加GsonFormat插件
+Settings > Plugins > Borwse repositories... > 搜索GsonFormat > Install安装 > 重启
+使用：Code > Generate > GsonFormat > Format > OK
+快捷键：Alt + s
+》AS打包LibDemo aar包
+选中lieDemo > 右侧Gradle > libDemo > Tasks > build > 双击assemble编译
+完成后在项目libDemo > build > outputs > aar
+》Apk包反编译
+必备2个工具：jd-gui.exe 和 dex2jar-2.0.zip（百度网盘已存储）
+将Apk后缀改成.zip > 解压后将classes.dex放入dex2jar-2.0文件夹下 > 用cmd打开dex2jar-2.0文件夹下d2j-dex2jar.bat位置，加空格，加classes.dex文件 > Enter回车
+生成一个classes-dex2jar.jar包，用jd-gui.exe打开即可
+
+
+Android Studio快捷键：
+ctrl + d                   复制当前正行
+ctrl + y                   删除当前正行
+ctrl + p                   方法参数提示
+ctrl + r                   全局替换
+ctrl + 空格                智能提示
+ctrl + shift + 上/下箭头 	调整正行 
+chtl + shift + u           大小写转换
+ctrl + shift + f           查找目标所在位置 > Preview查看
+ctrl + alt + 左/右箭头 		光标返回上/下一个位置 
+ctrl + alt + s             setting设置
+ctrl + alt + l             格式化
+ctrl + alt + F             生成全局变量/常量
+ctrl + alt + b	            查看接口具体实现
+ctrl + alt + t	            try catch、while、if语法
+ctrl + alt + 左/右箭头      上下光标点
+shift + F6                 重命名文件、方法、属性
+alt + Enger                导包、生成变量、报错提示
+alt + 左键                 竖向选中
+alt + Insert               Constructor、get & set
+F2                         定位报错
+/** + 回车                 函数方法带参数，多行注释生成
+i.for + Enter              生成for循环代码体
+alt + insert					实体类生成get/set
+
+
+-------------------------Xcode打包ipa步骤-------------------------
+XCode学习教程：http://www.cocoachina.com/ios/20140731/9284.html
+
+更改项目信息，点击项目（项目信息列表显示在右侧）：
+项目资源文件替换
+更改名称：Info —> Custom ios Target Properties —> Bundle display name
+更改版本号：Info —> Custom ios Target Properties —> Bundle version
+更改服务器地址：Info —> Custom ios Target Properties —> PlatformConfig —> ServerUrl
+更改包名：Build Settings —> Packaging —> Product Bundle Identifier
+Target.app通用ios设备选择Generic ios Device
+项目编译：顶部工具栏 —> Product —> Build
+项目打包：顶部工具栏 —> Product —> Archive —> Export —> Enterprise(Next) —> 一路下一步（Next）—> Export(选择导出地址)
+
+-------------------------Git命令-------------------------
+推送：
+git init
+git add .
+git commit -m "message"
+git remote add origin https://github.com/yang20108/android.git
+git push -u origin master
+
+克隆：
+git clone https://github.com/yang20108/android.git
+
+分支合并master
+D:\Project\APP>
+git fetch					从远程获取最新版本到本地
+git stauts					查看当前在那个分支上
+git branch					查看所有分支（当前分支会标记绿色）
+git checkout '分支名称'	切换分支
+git pull						拉取当前分支最新状态
+git pull origin master	拉取master最新状态(如果出现冲突，根据提示，先解决冲突)
+git add.						解决冲突后，重新添加
+git commit -m '备注'		提交
+git push						推送(保证master和分支没有冲突后，合并代码)
+
+
+-------------------------H5之HBuilder相关学习-------------------------
+谷歌浏览器js调试页面：chrome://inspect/#devices 
+HBuilder替换apk目录：D:\安装包\HBuilder\plugins\com.pandora.tools.android_1.0.0.201805251407\base
+连接谷歌浏览器的工具psiphon3：your IP address: 209.97.170.26
+H5前端学习的60个JS插件(含DEMO演示)：https://www.25xt.com/html5css3/13903.html
+JavaScript极简的JS函数：http://dev.dcloud.net.cn/mui/snippet/
+DCloud首页：http://dcloud.io/    
+http://dcloud.io/doc.html
+H5的自学思路和方法：https://www.cnblogs.com/jiaoyu121/p/6965230.html
+http://www.php.cn/div-tutorial-372254.html
+http://www.php.cn/html/html-basic.html
+TypeScript 教程：https://www.w3cschool.cn/typescript/
+Hbuilder离线打包及蓝牙插件开发Android注意事项：http://www.piaoyi.org/mobile-app/Hbuilder-Android-off-line.html
+HBuilder(HbuilderX通用)快捷键：
+参考：https://www.jianshu.com/p/441c9f4562db
+    Ctrl + d               删除整行内容
+    Ctrl + Shift +R        复制当前行到下一行
+    Ctrl + Shift +D        重新编辑
+    Ctrl + 方向键          当前行整行内容上移或下移
+    Alt + ↓               跳转到下一个可编辑区
+    Ctrl + Alt + j         与下一行合并
+    Ctrl + Alt + ←        选择助手
+    Alt + ←        	   光标返回上一个位置
+    Shift + 回车           生成换行符
+    Ctrl + 回车            向下插入空行
+    Ctrl + Shift + 回车    向上插入空行
+    Ctrl + Shift +F        格式化代码
+    Shift + 空格           全角/半角输入
+    Alt + [                匹配括号
+    Ctrl + Y               反撤销
+    Ctrl + alt + c         竖向选中
+    alt + shift + u        全部字母大写
+    alt + shift + l        全部字母小写
+    alt + shift + t        首字母大写
+
+-------------------------Webstorm-------------------------
+webstorm常用快捷键
+定位：
+当前内容搜索 ctrl+f
+全局内容搜索 ctrl+shift+f
+文件名搜索 ctrl+shift+n
+定位到指定代码行 ctrl+G
+定位到变量申明处 ctrl+b
+光标定位到代码块的前/后面 ctrl+[/]
+光标定位到行首/尾 home/end
+光标定位到下 shift+回车
+选择-------------------------
+选中单词(多次按扩大选择范围) ctrl+w
+选择下一个相同的词 alt+j
+浏览-------------------------
+在默认浏览器中打开 alt+f2(再回车)
+上/下一个标签页 alt+方向（左/右）
+关闭/恢复标签页 ctrl+f4
+alt+ctrl+L 格式化代码查看
+创建-------------------------
+新建文件 alt+insert (再选择新建的类型)
+编辑-------------------------
+复制一行（复制选中内容） ctrl+d
+删除一行 ctrl+y
+当前内容替换 ctrl+r
+全局内容替换 ctrl+shift+r
+行上/下移 ctrl+shift+方向上/下
+指定包裹层 ctrl+alt+t
+重命名 shift+f6 (选中文件后再按，会自动把关联的文件名同时修改过来)
+ctrl+r 替换内容
+输出模板 ctrl+j
+查看-------------------------
+切换目录侧边栏 alt+1
+切换收藏侧边栏 alt+2
+折叠/展开选中的代码块 ctrl+'+/-'
+显示/隐藏所以打开的侧边栏 ctrl+shift+f12
+分屏功能 鼠标右键选中标签页
+最近修改过的文件 ctrl+e
+显示当前css选择器或者JS函数的详细信息 ctrl+shift+i
+其他功能-------------------------
+收藏此文件 alt+shift+f
+快速查找并使用编辑所有功能 ctrl+shift+a
+debug相关-------------------------
+f8 下一步（不进入函数）
+f7 单步执行
+shift+f7 进入函数内
+shift+f8 跳出
+alt+f9
+WebStorm使用教程：http://blog.csdn.net/zghekuiwu/article/details/54382145
+http://blog.csdn.net/quincylk/article/details/18256697
+这里支持有很多的类型项目:
+Empty Project         ----一个空的项目
+Html5 Boilerplate     ----HTML5开发框架
+Web Starter Kit       ----Web Starter Kit 是 Google的一个开源项目,它里面提供了一些工具,比如 BrowserSync,实时的预览项目的变化,在不同浏览器上同步页面的行为。
+React App             ----基于React.js用来开发iOS和Android原生App。
+Twitter Bootstrap     ----Bootstrap是Twitter推出的一个用于前端开发的开源工具包。
+Foundation            ----Foundation 是一个易用、强大而且灵活的响应式前端框架，用于构建基于任何设备上的响应式网站、 Web应用和电子邮件。结构语义化、移动设备优先、完全可定制。
+Angular JS            ----AngularJS有着诸多特性，最为核心的是:MVVM、模块化、自动化双向数据绑定、语义化标签、依赖注入，等等。
+Angular CLI           ----Angular CLI 帮助开发者快速创建Angular 2项目和组件
+React Native          ----ReactNative可以基于目前大热的开源JavaScript库React.js来开发iOS和Android原生App。
+Node.js Express App   ----Express 是一个简洁而灵活的 node.js Web应用框架, 提供了一系列强大特性帮助你创建各种 Web 应用，和丰富的 HTTP 工具。使用 Express 可以快速地搭建一个完整功能的网站
+PhoneGap/Cordova App  ----PhoneGap/Cordova提供了一组设备相关的API，通过这组API，移动应用能够以JavaScript访问原生的设备功能，如摄像头、麦克风等。
+Yeoman                ----Yeoman是Google的团队和外部贡献者团队合作开发的，他的目标是通过Grunt（一个用于开发任务自动化的命令行工具）和Bower（一个HTML、CSS、Javascript和图片等前端资源的包管理器）的包装为开发者创建一个易用的工作流。
+Meteor App            ----Meteor是跨时代的全栈Web开发框架，Github stars数已超越Ruby on Rails。使用它能够迅速地开发实时的（Real-Time）和响应式的（Reactive）应用，并且可以在一套代码中支持Web，iOS，Android，
+Desktop多端。Meteor能够轻松的和其他框架和应用结合，如ReactJS，AngularJS，MySQL，Cordova等。
+Dart                  ----Dart是一种基于类的可选类型化编程语言，设计用于创建Web应用程序。
+
+-------------------------二维码开发-------------------------
+http://download.csdn.net/detail/chenjifeng1987/9598568
+http://www.open-open.com/lib/view/home/1322923500796
+http://blog.csdn.net/qinyuanpei/article/details/17726147
+http://blog.csdn.net/yanzhenjie1003/article/details/71641368
+http://blog.csdn.net/bestlove12345/article/details/51628240
+http://www.jb51.net/article/89267.htm
+ZBar官网： http://zbar.sourceforge.net/
+ZBar GitHub地址： https://github.com/ZBar/ZBar
+
+-------------------------kotlin开发-------------------------
+kotlin的基本使用：http://www.runoob.com/kotlin/kotlin-basic-syntax.html
+https://segmentfault.com/a/1190000009950426
+http://www.cnblogs.com/zhangqie/p/7448773.html
+http://blog.csdn.net/u011732740/article/details/72955728
+http://www.jianshu.com/p/dcaa25d33b0c
+http://blog.csdn.net/tangxl2008008/article/details/52421441
+http://blog.csdn.net/wu996489865/article/details/72726177
+http://blog.csdn.net/liangjiu2009/article/details/72790049
+http://www.jianshu.com/p/1ea733ea197d
+http://www.jianshu.com/p/946da9f06302
+http://blog.csdn.net/zxc123e/article/details/73368781
+
+-------------------------常用Dos命令-------------------------
+参考：https://www.cnblogs.com/defen/p/5618226.html
+内部命令有MD、CD、RD、DIR、PATH、COPY、TYPE、EDIT、REN、DEL、CLS、VER、DATE、TIME、PROMPT
+外部命令有DELTREE、FORMAT、DISKCOPY、LABEL、VOL、SYS、XCOPY、FC、ATTRIB、MEM、TREE
+切换到其他盘符 D:
+当前目录或子目录 CD [目录名/子目录名]
+退回到上一级目录 CD..
+返回到当前盘的目录下 CD\
+显示当前目录列表 CD dir
+--------------------------------------------------
+
+
+不愧是K2 一身的孤傲 他要是想做的事会全身心投入 要是不想的事 怎样都会无动于衷。
