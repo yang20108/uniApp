@@ -14,6 +14,143 @@
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/myapp/test4",
+			"style": {
+				"navigationBarTitleText": "test4"
+			}
+		}, {
+			"path": "pages/myapp/test3",
+			"style": {
+				"navigationBarTitleText": "test3"
+			}
+		}, {
+			"path": "pages/myapp/test2",
+			"style": {
+				"navigationBarTitleText": "test2"
+			}
+		}, {
+			"path": "pages/myapp/test",
+			"style": {
+				"navigationBarTitleText": "test"
+			}
+		}, {
+			"path": "pages/myapp/LongPress",
+			"style": {
+				"navigationBarTitleText": "LongPress"
+			}
+		}, {
+			"path": "pages/myapp/pictureTake",
+			"style": {
+				"navigationBarTitleText": "pictureTake"
+			}
+		}, {
+			"path": "pages/myapp/sqlite",
+			"style": {
+				"navigationBarTitleText": "sqlite"
+			}
+		}, {
+			"path": "pages/myapp/pictureWatermark",
+			"style": {
+				"navigationBarTitleText": "pictureWatermark"
+			}
+		}, {
+			"path": "pages/myapp/math",
+			"style": {
+				"navigationBarTitleText": "math"
+			}
+		}, {
+			"path": "pages/myapp/ArraySort",
+			"style": {
+				"navigationBarTitleText": "ArraySort"
+			}
+		}, {
+			"path": "pages/myapp/less",
+			"style": {
+				"navigationBarTitleText": "less"
+			}
+		}, {
+			"path": "pages/myapp/tools",
+			"style": {
+				"navigationBarTitleText": "tools"
+			}
+		}, {
+			"path": "pages/myapp/side-classification",
+			"style": {
+				"navigationBarTitleText": "side-classification"
+			}
+		}, {
+			"path": "pages/myapp/keyboard",
+			"style": {
+				"navigationBarTitleText": "keyboard"
+			}
+		}, {
+			"path": "pages/myapp/gestureSliding",
+			"style": {
+				"navigationBarTitleText": "gestureSliding"
+			}
+		}, {
+			"path": "pages/myapp/drawingCanvas",
+			"style": {
+				"navigationBarTitleText": "drawingCanvas"
+			}
+		}, {
+			"path": "pages/myapp/list",
+			"style": {
+				"navigationBarTitleText": "list"
+			}
+		}, {
+			"path": "pages/myapp/mixTree",
+			"style": {
+				"navigationBarTitleText": "mixTree"
+			}
+		}, {
+			"path": "pages/myapp/pageParent",
+			"style": {
+				"navigationBarTitleText": "pageParent"
+			}
+		}, {
+			"path": "pages/myapp/tabel-model",
+			"style": {
+				"navigationBarTitleText": "tabel-model"
+			}
+		}, {
+			"path": "pages/myapp/tow-level-list",
+			"style": {
+				"navigationBarTitleText": "tow-level-list"
+			}
+		}, {
+			"path": "pages/myapp/lockNumber",
+			"style": {
+				"navigationBarTitleText": "lockNumber",
+				"app-plus": {
+					"titleNView": {
+						"autoBackButton": false // 设置页面左上角onBack按钮不显示，onBackPress事件生效，此属性只在APP端有效
+					}
+				}
+			}
+		}, {
+			"path": "pages/myapp/games",
+			"style": {
+				"navigationBarTitleText": "打小鱼",
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/myapp/chat",
+			"style": {
+				"navigationBarTitleText": "心里话",
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							// 注意"text": "&#xe60e"改成"\ue60e"，"fontSrc": "/static/ttf.ttf" APP-PLUS和H5都兼容
+							"text": "\ue626",
+							"color": "#FFFFFF",
+							"fontSrc": "/static/ttf/iconfont.ttf",
+							"fontSize": "22px"
+						}]
+					}
+				}
+			}
+		}, {
 			"path": "pages/analysis/analysisSynthesis",
 			"style": {
 				"navigationBarTitleText": "综合分析"

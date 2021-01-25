@@ -1,9 +1,22 @@
 <script>
+	import service from "common/service.js";
 	export default {
 		onLaunch: function() {
 			console.log('App Launch')
 		},
 		onShow: function() {
+			let pages = getCurrentPages();
+			if (pages.length) {
+				var pageRoute = pages[pages.length - 1].route; // route页面栈第一个页面
+				var splits = pageRoute.split("/");
+				var lockStr = service.getChatLock();
+				// 开启手势锁
+				if (lockStr && "lockNumber" != splits[splits.length - 1]) {
+					uni.navigateTo({
+						url: "/pages/myapp/lockNumber?lockClose=unlock"
+					})
+				}
+			}
 			console.log('App Show')
 		},
 		onHide: function() {
