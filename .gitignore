@@ -1,0 +1,9 @@
+/unpackage/debug
+/unpackage/resources
+/unpackage/release
+/unpackage/dist
+/.vs
+# node_modules使用文档：https://github.com/dcloudio/uni-ui
+node_modules/
+package.json
+package-lock.json
