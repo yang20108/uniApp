@@ -4,7 +4,7 @@
 		<image mode="widthFix" :src="src" @click="preview"></image>
 		<view style="position: absolute;top: -999999px;">
 			<view>
-				<canvas :canvas-id="canvasId" :style="{'width':w+'px','height':h+'px'}"></canvas>
+				<canvas :style="{'width':w,'height': h}" canvas-id="firstCanvas"></canvas>
 			</view>
 		</view>
 	</view>
@@ -14,10 +14,9 @@
 	export default {
 		data() {
 			return {
-				canvasId: 'firstCanvas',
 				src: '',
-				w: 0,
-				h: 0
+				w: '',
+				h: ''
 			}
 		},
 		methods: {
@@ -32,31 +31,30 @@
 				uni.chooseImage({
 					count: 1,
 					success(res) {
-						var resFile = res.tempFilePaths[0];
 						uni.getImageInfo({
-							src: resFile,
-							success: (succ) => {
-								// console.log("succ: " + JSON.stringify(succ));
-								that.w = succ.width / 3;
-								that.h = succ.height / 3;
-								let ctx = uni.createCanvasContext(that.canvasId); /** 创建画布 */
+							src: res.tempFilePaths[0],
+							success: (ress) => {
+								that.w = ress.width / 3 + 'px';
+								that.h = ress.height / 3 + 'px';
+								let ctx = uni.createCanvasContext('firstCanvas'); /** 创建画布 */
 								//将图片src放到cancas内，宽高为图片大小
-								ctx.drawImage(resFile, 0, 0, that.w, that.h)
+								ctx.drawImage(res.tempFilePaths[0], 0, 0, ress.width / 3, ress.height / 3)
 								ctx.setFontSize(18)
-								ctx.setFillStyle('#19e3e3')
+								ctx.setFillStyle('#10fff0')
 								ctx.rotate(30 * Math.PI / 180);
-								ctx.fillText('我是水印', that.w * 0.5, that.h * 0.3)
+								let textToWidth = ress.width / 3 * 0.5;
+								let textToHeight = ress.height / 3 * 0.3;
+								ctx.fillText('添加水印', textToWidth, textToHeight)
 								/** 除了上面的文字水印，这里也可以加入图片水印 */
-								//ctx.drawImage('/static/watermark.png', 0, 0, that.w, that.h)
-								ctx.draw(false, function() {
+								//ctx.drawImage('/static/watermark.png', 0, 0, ress.width / 3, ress.height / 3)
+								ctx.draw(false, () => {
 									setTimeout(() => {
-									uni.canvasToTempFilePath({
-										canvasId: that.canvasId,
-										success(ctfp) {
-											// console.log("ctfp: " + JSON.stringify(ctfp));
-											that.src = ctfp.tempFilePath;
-										}
-									});
+										uni.canvasToTempFilePath({
+											canvasId: 'firstCanvas',
+											success: (res1) => {
+												that.src = res1.tempFilePath;
+											}
+										});
 									}, 1000);
 								});
 							}
