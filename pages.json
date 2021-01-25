@@ -14,6 +14,115 @@
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/analysis/analysisSynthesis",
+			"style": {
+				"navigationBarTitleText": "综合分析"
+			}
+		}, {
+			"path": "pages/hidden/hiddenGovern",
+			"style": {
+				"navigationBarTitleText": "隐患治理"
+			}
+		}, {
+			"path": "pages/hidden/hiddenDanger",
+			"style": {
+				"navigationBarTitleText": "隐患排查"
+			}
+		}, {
+			"path": "pages/risk/riskShowInfo",
+			"style": {
+				"navigationBarTitleText": "巡查报告",
+				"app-plus": {
+					"titleNView": false
+				}
+			}
+		}, {
+			"path": "pages/risk/riskShow",
+			"style": {
+				"navigationBarTitleText": "巡查报告"
+			}
+		}, {
+			"path": "pages/sztd/siteSelect",
+			"style": {
+				"navigationBarTitleText": "工点选择"
+			}
+		}, {
+			"path": "pages/warning/warningHandleInfo",
+			"style": {
+				"navigationBarTitleText": "预警处理"
+			}
+		}, {
+			"path": "pages/warning/warningHandle",
+			"style": {
+				"navigationBarTitleText": "预警处理"
+			}
+		}, {
+			"path": "pages/warning/warningEarlyInfo",
+			"style": {
+				"navigationBarTitleText": "预警汇总"
+			}
+		}, {
+			"path": "pages/warning/warningEarly",
+			"style": {
+				"navigationBarTitleText": "预警汇总"
+			}
+		}, {
+			"path": "pages/dangerous/dangerousAdd",
+			"style": {
+				"navigationBarTitleText": "危大录入"
+			}
+		}, {
+			"path": "pages/dangerous/dangerous",
+			"style": {
+				"navigationBarTitleText": "危大工程",
+				"navigationStyle": "custom",
+				"app-plus": {
+					"titleNView": false,
+					"bounce": "none",
+					"pullToRefresh": {
+						"style": "circle",
+						"offset": "70px"
+					}
+				}
+			}
+		}, {
+			"path": "pages/risk/riskPatrol",
+			"style": {
+				"navigationBarTitleText": "风险巡查"
+			}
+		}, {
+			"path": "pages/risk/riskProcedureCheck",
+			"style": {
+				"navigationBarTitleText": "工序检查"
+			}
+		}, {
+			"path": "pages/risk/riskProcedureList",
+			"style": {
+				"navigationBarTitleText": "风险列表"
+			}
+		}, {
+			"path": "pages/risk/riskAdd",
+			"style": {
+				"navigationBarTitleText": "风险检查"
+			}
+		}, {
+			"path": "pages/risk/riskDynamic",
+			"style": {
+				"navigationBarTitleText": "风险录入",
+				"app-plus": {
+					"bounce": "none",
+					"titleNView": {
+						"buttons": [{
+							// 注意"text": "&#xe60e"改成"\ue60e"，"fontSrc": "/static/ttf.ttf" APP-PLUS和H5都兼容
+							"text": "\ue61b",
+							"color": "#FFFFFF",
+							"fontSrc": "/static/ttf/iconfont.ttf",
+							"fontSize": "18px"
+						}]
+					}
+				}
+			}
+		}, {
 			"path": "pages/csp/conditionCreate",
 			"style": {
 				"navigationBarTitleText": "工况创建"

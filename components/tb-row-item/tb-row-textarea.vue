@@ -2,12 +2,12 @@
 	<view class="tb-row-item">
 		<view class="tb-text-title">
 			<view class="item-title">
-				<text class="tmicon tm--bitian iconfont-required" v-if="required"></text>
+				<text class="iconfont icon-bitian iconfont-required" v-if="required"></text>
 				<view class="item-label">{{ label }}</view>
 			</view>
 			<view class="item-body"></view>
 			<view class="item-selection">
-				<text class="tmicon tm-voice tb-row-yuyin" @click="startRecognize"></text>
+				<text class="iconfont icon-voice tb-row-yuyin" @click="startRecognize"></text>
 			</view>
 		</view>
 		<view class="tb-text-body">

@@ -4,7 +4,7 @@
 		 left-icon="arrowleft" title="自定义title" @clickLeft="back">
 			<template v-slot:right>
 				<navigator v-if="add" url="./dangerousAdd">
-					<text class="iconfont icon-add" style="font-size: 18px;"></text>
+					<text class="iconfont icon-icon-add" style="font-size: 18px;"></text>
 				</navigator>
 			</template>
 		</uni-nav-bar>

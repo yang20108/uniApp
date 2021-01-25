@@ -66,11 +66,11 @@
 				}, {
 					title: '隐患排查',
 					icon: 'icon-risk square-icon-yhpc',
-					url: '../handle/handleDanger'
+					url: '../hidden/hiddenDanger'
 				}, {
 					title: '综合分析',
 					icon: 'icon-zonghefenxi square-icon-zonghefenxi',
-					url: '../analysis/analysisSynthesize'
+					url: '../analysis/analysisSynthesis'
 				}]
 			}
 		},
