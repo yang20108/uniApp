@@ -14,6 +14,11 @@
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/myapp/chongdian",
+			"style": {
+				"navigationBarTitleText": "chongdian"
+			}
+		}, {
 			"path": "pages/myapp/fengshan",
 			"style": {
 				"navigationBarTitleText": "fengshan"
@@ -29,9 +34,9 @@
 				"navigationBarTitleText": "test3"
 			}
 		}, {
-			"path": "pages/myapp/chongdian",
+			"path": "pages/myapp/test2",
 			"style": {
-				"navigationBarTitleText": "chongdian"
+				"navigationBarTitleText": "test2"
 			}
 		}, {
 			"path": "pages/myapp/test",
