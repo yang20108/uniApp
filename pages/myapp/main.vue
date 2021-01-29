@@ -19,7 +19,8 @@
 			return {
 				title: 'Hello',
 				list: [
-					// {name: 'test2',content: '',url: '../myapp/test2'},
+					{name: '充电动画',content: '',url: '../myapp/chongdian'},
+					{name: '风扇',content: '',url: '../myapp/fengshan'},
 					{name: 'test4',content: 'setInterval, $set, $delete',url: '../myapp/test4'},
 					{name: 'test3',content: '基础组件',url: '../myapp/test3'},
 					{name: 'test',content: '基础语法',url: '../myapp/test'},
