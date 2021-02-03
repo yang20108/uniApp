@@ -19,8 +19,12 @@
 			return {
 				title: 'Hello',
 				list: [
-					{name: '充电动画',content: '',url: '../myapp/chongdian'},
-					{name: '风扇',content: '',url: '../myapp/fengshan'},
+					{name: '呼吸',content: '动画',url: '../myapp/huxi'},
+					{name: '黑白天',content: '动画',url: '../myapp/heibai'},
+					{name: '点赞',content: '动画',url: '../myapp/dianzan'},
+					{name: '充电2',content: '动画',url: '../myapp/chongdian2'},
+					{name: '充电',content: '动画',url: '../myapp/chongdian'},
+					{name: '风扇',content: '动画',url: '../myapp/fengshan'},
 					{name: 'test4',content: 'setInterval, $set, $delete',url: '../myapp/test4'},
 					{name: 'test3',content: '基础组件',url: '../myapp/test3'},
 					{name: 'test',content: '基础语法',url: '../myapp/test'},

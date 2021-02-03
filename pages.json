@@ -9,129 +9,149 @@
 					"scrollIndicator": "none",
 					"bounce": "horizontal"
 				},
-				"titleImage": "static/logo.png",
+				"titleImage": "/static/logo.png",
 				"backgroundTextStyle": "dark",
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/myapp/huxi",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/myapp/heibai",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/myapp/dianzan",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
+			"path": "pages/myapp/chongdian2",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
 			"path": "pages/myapp/chongdian",
 			"style": {
-				"navigationBarTitleText": "chongdian"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/fengshan",
 			"style": {
-				"navigationBarTitleText": "fengshan"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/test4",
 			"style": {
-				"navigationBarTitleText": "test4"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/test3",
 			"style": {
-				"navigationBarTitleText": "test3"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/test2",
 			"style": {
-				"navigationBarTitleText": "test2"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/test",
 			"style": {
-				"navigationBarTitleText": "test"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/LongPress",
 			"style": {
-				"navigationBarTitleText": "LongPress"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/pictureTake",
 			"style": {
-				"navigationBarTitleText": "pictureTake"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/sqlite",
 			"style": {
-				"navigationBarTitleText": "sqlite"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/pictureWatermark",
 			"style": {
-				"navigationBarTitleText": "pictureWatermark"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/math",
 			"style": {
-				"navigationBarTitleText": "math"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/ArraySort",
 			"style": {
-				"navigationBarTitleText": "ArraySort"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/less",
 			"style": {
-				"navigationBarTitleText": "less"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/tools",
 			"style": {
-				"navigationBarTitleText": "tools"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/side-classification",
 			"style": {
-				"navigationBarTitleText": "side-classification"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/keyboard",
 			"style": {
-				"navigationBarTitleText": "keyboard"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/gestureSliding",
 			"style": {
-				"navigationBarTitleText": "gestureSliding"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/drawingCanvas",
 			"style": {
-				"navigationBarTitleText": "drawingCanvas"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/list",
 			"style": {
-				"navigationBarTitleText": "list"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/mixTree",
 			"style": {
-				"navigationBarTitleText": "mixTree"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/pageParent",
 			"style": {
-				"navigationBarTitleText": "pageParent"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/tabel-model",
 			"style": {
-				"navigationBarTitleText": "tabel-model"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/tow-level-list",
 			"style": {
-				"navigationBarTitleText": "tow-level-list"
+				"navigationBarTitleText": "uni-app"
 			}
 		}, {
 			"path": "pages/myapp/lockNumber",
 			"style": {
-				"navigationBarTitleText": "lockNumber",
+				"navigationBarTitleText": "uni-app",
 				"app-plus": {
 					"titleNView": {
 						"autoBackButton": false // 设置页面左上角onBack按钮不显示，onBackPress事件生效，此属性只在APP端有效
