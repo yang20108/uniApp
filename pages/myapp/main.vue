@@ -19,6 +19,7 @@
 			return {
 				title: 'Hello',
 				list: [
+					{name: '图片预览',content: '',url: '../myapp/yulan'},
 					{name: '呼吸',content: '动画',url: '../myapp/huxi'},
 					{name: '黑白天',content: '动画',url: '../myapp/heibai'},
 					{name: '点赞',content: '动画',url: '../myapp/dianzan'},
