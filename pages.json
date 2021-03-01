@@ -14,6 +14,11 @@
 				"onReachBottomDistance": 0
 			}
 		}, {
+			"path": "pages/myapp/scrollBar",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}, {
 			"path": "pages/myapp/yulan",
 			"style": {
 				"navigationBarTitleText": "uni-app"

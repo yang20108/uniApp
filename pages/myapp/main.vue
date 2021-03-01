@@ -19,6 +19,7 @@
 			return {
 				title: 'Hello',
 				list: [
+					{name: 'scrollBar',content: '切换动画',url: '../myapp/scrollBar'},
 					{name: '图片预览',content: '',url: '../myapp/yulan'},
 					{name: '呼吸',content: '动画',url: '../myapp/huxi'},
 					{name: '黑白天',content: '动画',url: '../myapp/heibai'},
