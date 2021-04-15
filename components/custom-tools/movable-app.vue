@@ -51,8 +51,6 @@
 				touchItem: '', //备份被移动item数据
 				deleteAppID: null, //触发删除的itemID
 				deleteShow: false, //删除按钮状态
-				IsDeleteAfter: false, //是否为删除后
-				IsCancelDelete: false, //是否为取消后
 				moviewShow: false, //滑块状态
 				areaBoxInfo: null, //保存滑动区域盒子dom信息
 				inBoxXY: {}, //鼠标在item中的坐标
@@ -93,13 +91,16 @@
 			AppLi_touchstart(index, event) {
 				this.touchIndex = index;
 				this.touchItem = this.DataList[index];
+				// 设置可移动方块的初始位置为当前所选中图片的位置坐标
+				this.moveX = this.touchItem.x;
+				this.moveY = this.touchItem.y;
 				// 行为判断
 				if (this.deleteShow) {
 					// 取消删除
 					if (this.touchItem.appId != this.deleteAppID) {
 						this.deleteAppID = null;
 						this.deleteShow = false;
-						this.IsCancelDelete = true;
+						this.moviewShow = false;
 					}
 				}
 				// 过时触发（长按事件），touchEnd中清除此定时器
@@ -111,9 +112,6 @@
 					// 拖动逻辑
 					//显示可移动方块
 					this.moviewShow = true
-					// 设置可移动方块的初始位置为当前所选中图片的位置坐标
-					this.moveX = this.touchItem.x;
-					this.moveY = this.touchItem.y;
 					var x = event.changedTouches[0].clientX - this.areaBoxInfo.left;
 					var y = event.changedTouches[0].clientY - this.areaBoxInfo.top;
 					// 保存鼠标在图片内的坐标
@@ -152,22 +150,20 @@
 				}
 			},
 			AppLi_touchend(index) {
-				if (!this.deleteShow && !this.IsDeleteAfter && !this.IsCancelDelete) {
-					console.log("this.touchItem: " + JSON.stringify(this.touchItem));
-					// this.getInto(this.touchItem.appName)
+				this.touchIndex = index;
+				this.touchItem = this.DataList[index];
+				if (!this.deleteShow) {
+					this.$emit("clickItem", index);
 				} else {
-					// 为下次getInto清除状态
-					this.IsDeleteAfter = false;
-					this.IsCancelDelete = false;
 					// 移动结束隐藏可移动方块
 					if (this.hoverClassIndex && this.touchIndex != this.hoverClassIndex) {
 						this.$set(this.DataList, this.touchIndex, this.DataList[this.hoverClassIndex]);
 						this.$set(this.DataList, this.hoverClassIndex, this.touchItem);
-						this.deleteShow = false;
 						this.resetListDom()
+					this.deleteShow = false;
+					this.moviewShow = false
 					}
 					this.touchItem = ""
-					this.moviewShow = false
 					this.hoverClass = ""
 					this.hoverClassIndex = null;
 				}
@@ -181,7 +177,6 @@
 			deleteAppItem(index) {
 				this.DataList.splice(index, 1)
 				this.deleteShow = false;
-				this.IsDeleteAfter = true;
 				this.resetListDom()
 			},
 			resetListDom() {
