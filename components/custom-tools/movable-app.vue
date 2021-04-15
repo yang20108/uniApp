@@ -1,40 +1,46 @@
 <template>
 	<view>
-		<!-- 可移动区域容器 -->
-		<movable-area class="movarea-area" ref="areaBox" id="areaBox">
-			<!-- 这块只是循环出固定内容，监听其元素touch事件获取坐标 -->
-			<view class="app-list">
-				<view class="app-li text-blue" :class="(hoverClass === 'appLi' + index) ? 'app-select' : ''"
-				 :id="'app' + index"
-				 v-for="(appItem, index) in Datas" :key="appItem.name"
-				 @touchstart="AppLi_touchstart(index,$event)"
+		<movable-area class="movable-area" ref="areaBox" id="areaBox">
+			<view class="movable-list">
+				<view class="app-li text-blue" :id="'appLi' + index"
+				 :class="(hoverClass === 'appLi' + index) ? 'app-select' : ''"
+				 v-for="(appItem, index) in DataList" :key="appItem.name"
+				 @touchstart="AppLi_touchstart(index, $event)"
 				 @touchmove="AppLi_touchmove"
 				 @touchend="AppLi_touchend(index)">
-					<text :class="['iconfont app-icon', appItem.appIcon]"></text>
+					<text :class="['iconfont', appItem.appIcon]"></text>
 					<text class="app-name">{{appItem.appName}}</text>
-					<text class="iconfont app-icon icon-clear app-roundclosefill" :class="deleteAppID === appItem.appId && showDelete ? '' : 'app-hide'"
+					<text class="iconfont icon-clear"
+					 :class="deleteAppID === appItem.appId && showDelete ? '' : 'hide'"
 					 @tap="deleteAppItem(index)"></text>
 				</view>
 				<view class="app-li text-blue" @tap="addAppItem">
-					<text class="iconfont app-icon icon-icon-add app-roundadd"></text>
+					<text class="iconfont icon-icon-add"></text>
 				</view>
 			</view>
 			<!-- 滑块 -->
-			<movable-view v-if="moviewShow" class="movable-view text-blue" :x="moveX" :y="moveY" :animation="false" direction="all"
-			 :style="{
-				width: moveViewSize + 'px',
-				height: 160 + 'rpx'
-			 }">
-				<text :class="['iconfont app-icon', touchItem.appIcon]"></text>
+			<movable-view v-if="moviewShow"
+			 :x="moveX"
+			 :y="moveY"
+			 :style="{ width: moveViewSize + 'px', height: 160 + 'rpx' }"
+			 class="movable-view text-blue"
+			 :animation="false"
+			 direction="all">
+				<text :class="['iconfont', touchItem.appIcon]"></text>
 				<text class="app-name">{{touchItem.appName}}</text>
 			</movable-view>
 		</movable-area>
+		<!-- 新增模态 -->
+		<!-- <Modal ref="addAppItem" title="添加" @confirm="confirm">
+			<InputUnify ref="addAppInput" title="名字" placeholder="请输入应用名"></InputUnify>
+		</Modal> -->
 	</view>
 </template>
 
 <script>
+	// import InputUnify from "@/components/unify-input.vue"
 	export default {
-		name: "app-list",
+		name: "AppList",
 		props: {
 			listData: {
 				type: Array,
@@ -45,9 +51,7 @@
 		},
 		data() {
 			return {
-				Datas: this.listData, //缓存props，(不建议直接修改props)
-				touchIndex: 0, //被移动index
-				touchItem: '', //备份被移动item数据
+				DataList: this.listData, //缓存props，(不建议直接修改props)
 				deleteAppID: null, //触发删除的itemID
 				showDelete: false, //删除按钮状态
 				IsDeleteAfter: false, //是否为删除后
@@ -55,6 +59,8 @@
 				moviewShow: false, //滑块状态
 				areaBoxInfo: null, //保存滑动区域盒子dom信息
 				inBoxXY: {}, //鼠标在item中的坐标
+				touchIndex: 0, //被移动index
+				touchItem: '', //备份被移动item数据
 				moveX: 0, //相对滑动盒子的坐标
 				moveY: 0, //相对滑动盒子的坐标
 				hoverClass: '',
@@ -62,7 +68,7 @@
 			};
 		},
 		watch: {
-			Datas(val) {
+			DataList(val) {
 				this.$emit("listChange", val)
 			}
 		},
@@ -75,27 +81,39 @@
 				}
 			}
 		},
+		components: {
+			// InputUnify
+		},
+		mounted() {
+			// 获取dom信息
+			this.resetListDom()
+		},
 		methods: {
+			getDomInfo(id, callBack) {
+				const query = uni.createSelectorQuery().in(this);
+				query.select('#' + id).boundingClientRect().exec(function(res) {
+					callBack(res[0]);
+				});
+			},
 			// 添加
 			addAppItem() {
-				// this.$refs.addAppItem.ModalStatus()
+				this.$refs.addAppItem.ModalStatus()
 			},
 			confirm() {
 				let appItem = {
-					appId: this.Datas.length + 1,
-					appIcon: "icon-geren",
-					appName: ""
+					appId: this.DataList.length + 1,
+					appIcon: "cuIcon-pic",
+					appName: this.$refs.addAppInput.value,
+					appLink: ""
 				};
-				this.Datas.push(appItem);
+				this.DataList.push(appItem);
+				this.$refs.addAppInput.resetVal();
 				this.$nextTick(() => {
 					this.resetListDom()
 				});
 			},
 			AppLi_touchstart(index, event) {
-				this.moveX = this.Datas[index].x;
-				this.moveY = this.Datas[index].y;
-				this.moviewShow = true;
-				this.touchItem = this.Datas[index];
+				this.touchItem = this.DataList[index];
 				// 行为判断
 				if (this.showDelete) {
 					// 取消删除
@@ -121,17 +139,16 @@
 					//保存当前所选择的索引
 					this.touchIndex = index;
 					// 设置可移动方块的初始位置为当前所选中图片的位置坐标
-					this.moveX = this.Datas[index].x;
-					this.moveY = this.Datas[index].y;
+					this.moveX = this.DataList[index].x;
+					this.moveY = this.DataList[index].y;
 					var x = event.changedTouches[0].clientX - this.areaBoxInfo.left;
 					var y = event.changedTouches[0].clientY - this.areaBoxInfo.top;
 					// 保存鼠标在图片内的坐标
 					this.inBoxXY = {
-						x: x - this.Datas[index].x,
-						y: y - this.Datas[index].y,
+						x: x - this.DataList[index].x,
+						y: y - this.DataList[index].y,
 					}
-				},
-				500);
+				}, 500);
 			},
 			AppLi_touchmove(event) {
 				// 每次endTouch清除startTouch删除按钮定时器
@@ -149,7 +166,7 @@
 					this.moveY = y - this.inBoxXY.y;
 
 					let setIng = false;
-					this.Datas.forEach((item, idx) => {
+					this.DataList.forEach((item, idx) => {
 						if (x > item.x && x < item.x + 80 && y > item.y && y < item.y + 80) {
 							this.hoverClass = 'appLi' + idx
 							this.hoverClassIndex = idx;
@@ -164,17 +181,16 @@
 				}
 			},
 			AppLi_touchend(index) {
-				// console.log("松手");
 				if (!this.showDelete && !this.IsDeleteAfter && !this.IsCancelDelete) {
-					this.$emit("onclick", this.touchIndex);
+					this.getInto(this.touchItem.appName)
 				} else {
 					// 为下次getInto清除状态
 					this.IsDeleteAfter = false;
 					this.IsCancelDelete = false;
 					// 移动结束隐藏可移动方块
 					if (this.hoverClassIndex != null && this.touchIndex != this.hoverClassIndex) {
-						this.$set(this.Datas, this.touchIndex, this.Datas[this.hoverClassIndex]);
-						this.$set(this.Datas, this.hoverClassIndex, this.touchItem);
+						this.$set(this.DataList, this.touchIndex, this.DataList[this.hoverClassIndex]);
+						this.$set(this.DataList, this.hoverClassIndex, this.touchItem);
 						this.showDelete = false;
 						this.resetListDom()
 					}
@@ -183,6 +199,7 @@
 					this.hoverClass = ""
 					this.hoverClassIndex = null;
 				}
+
 				// 每次endTouch清除startTouch删除按钮定时器
 				if (this.Loop) {
 					clearTimeout(this.Loop);
@@ -190,50 +207,46 @@
 				}
 			},
 			deleteAppItem(index) {
-				this.Datas.splice(index, 1)
+				this.DataList.splice(index, 1)
 				this.showDelete = false;
 				this.checkIndex = null;
 				this.IsDeleteAfter = true;
 				this.resetListDom()
 			},
-			getDomInfo(id, callBack) {
-				const query = uni.createSelectorQuery().in(this);
-				query.select('#' + id).boundingClientRect().exec(function(res) {
-					callBack(res[0]);
-				});
+			getInto(appName) {
+				uni.showToast({
+					title: "进入" + appName,
+					icon: "none"
+				})
 			},
 			resetListDom() {
 				let _this = this;
 				this.getDomInfo('areaBox', info => {
-					// console.log("info: " + JSON.stringify(info));
-					if (info) {
-						_this.areaBoxInfo = info;
-						// 设置区域内所有图片的左上角坐标
-						_this.Datas.forEach((item, idx) => {
-							_this.getDomInfo('app' + idx, res => {
-								item.x = res.left - info.left;
-								item.y = res.top - info.top;
-							});
+					_this.areaBoxInfo = info;
+					// 设置区域内所有图片的左上角坐标
+					_this.DataList.forEach((item, idx) => {
+						_this.getDomInfo('appLi' + idx, res => {
+							item.x = res.left - info.left;
+							item.y = res.top - info.top;
 						});
-						// console.log("_this.Datas: " + JSON.stringify(_this.Datas));
-					}
+					});
 				});
+			},
+			boxClick() {
+				this.deleteAppID = null;
+				this.showDelete = false;
 			}
-		},
-		mounted() {
-			// 获取dom信息
-			this.resetListDom()
 		}
 	}
 </script>
 
 <style lang="scss">
-	.movarea-area {
+	.movable-area {
 		width: 100%;
 		height: auto;
 	}
 
-	.app-list {
+	.movable-list {
 		width: 100%;
 		display: flex;
 		flex-wrap: wrap;
@@ -249,7 +262,7 @@
 		padding: 20rpx;
 		position: relative;
 
-		.app-icon {
+		.iconfont {
 			font-size: 60rpx;
 		}
 
@@ -257,23 +270,19 @@
 			font-size: 24rpx;
 		}
 
-		.app-hide {
-			display: none;
-		}
-
-		.app-roundadd {
+		.icon-icon-add {
 			font-size: 60rpx;
 			color: #CCCCCC;
 		}
 
-		.app-roundclosefill {
+		.icon-clear {
 			position: absolute;
 			top: 12rpx;
 			right: 12rpx;
 			font-size: 36rpx;
 			z-index: 2;
 
-			&.app-hide {
+			&.hide {
 				display: none;
 			}
 		}
@@ -291,7 +300,7 @@
 		justify-content: space-around;
 		padding: 20rpx;
 
-		.app-icon {
+		.iconfont {
 			font-size: 60rpx;
 		}
 
