@@ -22,6 +22,7 @@
 			<movable-view v-if="moviewShow"
 			 :x="moveX"
 			 :y="moveY"
+			 :style="{width: moveW + 'px', height: moveH + 'px'}"
 			 class="app-size movable-view text-blue"
 			 :animation="false"
 			 direction="all">
@@ -54,6 +55,8 @@
 				moviewShow: false, //滑块状态
 				areaBoxInfo: null, //保存滑动区域盒子dom信息
 				inBoxXY: {}, //鼠标在item中的坐标
+				moveH: 0, //相对滑动盒子的高度
+				moveW: 0, //相对滑动盒子的宽度
 				moveX: 0, //相对滑动盒子的坐标
 				moveY: 0, //相对滑动盒子的坐标
 				hoverClass: '',
@@ -65,23 +68,13 @@
 				this.$emit("listChange", val)
 			}
 		},
-		computed: {
-			moveViewSize() {
-				if (this.areaBoxInfo && this.areaBoxInfo.width) {
-					return this.areaBoxInfo.width / 5
-				} else {
-					return 0
-				}
-			}
-		},
 		methods: {
 			// 添加
 			addAppItem() {
 				let appItem = {
 					appId: this.addAppID + 1,
 					appIcon: "icon-geren",
-					appName: "员工",
-					appLink: ""
+					appName: "员工" + this.addAppID,
 				};
 				this.DataList.push(appItem);
 				this.$nextTick(() => {
@@ -92,6 +85,8 @@
 				this.touchIndex = index;
 				this.touchItem = this.DataList[index];
 				// 设置可移动方块的初始位置为当前所选中图片的位置坐标
+				this.moveW = this.touchItem.w;
+				this.moveH = this.touchItem.h;
 				this.moveX = this.touchItem.x;
 				this.moveY = this.touchItem.y;
 				// 行为判断
@@ -103,15 +98,14 @@
 						this.moviewShow = false;
 					}
 				}
-				// 过时触发（长按事件），touchEnd中清除此定时器
+				// 【拖动逻辑】过时触发（长按事件），touchEnd中清除此定时器
 				this.Loop = setTimeout(() => {
 					// 触感反馈（安卓上是150毫秒，ios无短触控反馈）
 					uni.vibrateShort();
 					this.deleteShow = true;
 					this.deleteAppID = this.touchItem.appId;
-					// 拖动逻辑
 					//显示可移动方块
-					this.moviewShow = true
+					this.moviewShow = true;
 					var x = event.changedTouches[0].clientX - this.areaBoxInfo.left;
 					var y = event.changedTouches[0].clientY - this.areaBoxInfo.top;
 					// 保存鼠标在图片内的坐标
@@ -191,6 +185,8 @@
 							this.addAppID = item.appId;
 						}
 						_this.getDomInfo('appLi' + idx, res => {
+							item.h = res.height;
+							item.w = res.width;
 							item.x = res.left - info.left;
 							item.y = res.top - info.top;
 						});
@@ -224,9 +220,7 @@
 	}
 
 	.app-size {
-		width: 100rpx;
-		height: 160rpx;
-		padding: 20rpx;
+		padding: 20rpx 40rpx;
 		// box-sizing: border-box;
 	}
 
@@ -269,7 +263,7 @@
 
 	.movable-view {
 		opacity: 0.8;
-		z-index: 999;
+		// z-index: 999;
 		box-sizing: border-box;
 		text-align: center;
 		display: flex;
