@@ -48,6 +48,7 @@
 				DataList: this.listData, //缓存props，(不建议直接修改props)
 				touchIndex: 0, //被移动index
 				touchItem: '', //备份被移动item数据
+				addAppID: 0, //记录最大的id，用于添加防止重复
 				deleteAppID: null, //触发删除的itemID
 				deleteShow: false, //删除按钮状态
 				moviewShow: false, //滑块状态
@@ -77,7 +78,7 @@
 			// 添加
 			addAppItem() {
 				let appItem = {
-					appId: this.DataList.length + 1,
+					appId: this.addAppID + 1,
 					appIcon: "icon-geren",
 					appName: "员工",
 					appLink: ""
@@ -176,6 +177,8 @@
 			deleteAppItem(index) {
 				this.DataList.splice(index, 1)
 				this.deleteShow = false;
+				this.moviewShow = false;
+				this.deleteAppID = null;
 				this.resetListDom()
 			},
 			resetListDom() {
@@ -184,6 +187,9 @@
 					_this.areaBoxInfo = info;
 					// 设置区域内所有图片的左上角坐标
 					_this.DataList.forEach((item, idx) => {
+						if (item.appId > this.addAppID) {
+							this.addAppID = item.appId;
+						}
 						_this.getDomInfo('appLi' + idx, res => {
 							item.x = res.left - info.left;
 							item.y = res.top - info.top;
