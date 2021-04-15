@@ -38,9 +38,8 @@
 </template>
 
 <script>
-	// import InputUnify from "@/components/unify-input.vue"
 	export default {
-		name: "AppList",
+		name: "movable-app",
 		props: {
 			listData: {
 				type: Array,
@@ -81,20 +80,7 @@
 				}
 			}
 		},
-		components: {
-			// InputUnify
-		},
-		mounted() {
-			// 获取dom信息
-			this.resetListDom()
-		},
 		methods: {
-			getDomInfo(id, callBack) {
-				const query = uni.createSelectorQuery().in(this);
-				query.select('#' + id).boundingClientRect().exec(function(res) {
-					callBack(res[0]);
-				});
-			},
 			// 添加
 			addAppItem() {
 				this.$refs.addAppItem.ModalStatus()
@@ -232,10 +218,16 @@
 					});
 				});
 			},
-			boxClick() {
-				this.deleteAppID = null;
-				this.showDelete = false;
+			getDomInfo(id, callBack) {
+				const query = uni.createSelectorQuery().in(this);
+				query.select('#' + id).boundingClientRect().exec(function(res) {
+					callBack(res[0]);
+				});
 			}
+		},
+		mounted() {
+			// 获取dom信息
+			this.resetListDom()
 		}
 	}
 </script>
