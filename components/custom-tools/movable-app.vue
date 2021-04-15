@@ -2,7 +2,7 @@
 	<view>
 		<movable-area class="movable-area" ref="areaBox" id="areaBox">
 			<view class="movable-list">
-				<view class="app-li text-blue" :id="'appLi' + index"
+				<view class="app-li app-size text-blue" :id="'appLi' + index"
 				 :class="(hoverClass === 'appLi' + index) ? 'app-select' : ''"
 				 v-for="(appItem, index) in DataList" :key="appItem.name"
 				 @touchstart="AppLi_touchstart(index, $event)"
@@ -11,10 +11,10 @@
 					<text :class="['iconfont', appItem.appIcon]"></text>
 					<text class="app-name">{{appItem.appName}}</text>
 					<text class="iconfont icon-clear"
-					 :class="deleteAppID === appItem.appId && deleteShow ? '' : 'hide'"
+					 :class="deleteAppID === appItem.appId && deleteShow ? '' : 'app-del'"
 					 @tap="deleteAppItem(index)"></text>
 				</view>
-				<view class="app-li text-blue" @tap="addAppItem">
+				<view class="app-li app-size text-blue" @tap="addAppItem">
 					<text class="iconfont icon-icon-add"></text>
 				</view>
 			</view>
@@ -22,8 +22,7 @@
 			<movable-view v-if="moviewShow"
 			 :x="moveX"
 			 :y="moveY"
-			 :style="{ width: moveViewSize + 'px', height: 160 + 'rpx' }"
-			 class="movable-view text-blue"
+			 class="app-size movable-view text-blue"
 			 :animation="false"
 			 direction="all">
 				<text :class="['iconfont', touchItem.appIcon]"></text>
@@ -160,8 +159,8 @@
 						this.$set(this.DataList, this.touchIndex, this.DataList[this.hoverClassIndex]);
 						this.$set(this.DataList, this.hoverClassIndex, this.touchItem);
 						this.resetListDom()
-					this.deleteShow = false;
-					this.moviewShow = false
+						this.deleteShow = false;
+						this.moviewShow = false
 					}
 					this.touchItem = ""
 					this.hoverClass = ""
@@ -218,15 +217,20 @@
 		flex-wrap: wrap;
 	}
 
-	.app-li {
-		width: 20%;
+	.app-size {
+		width: 100rpx;
 		height: 160rpx;
+		padding: 20rpx;
+		// box-sizing: border-box;
+	}
+
+	.app-li {
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		padding: 20rpx;
 		position: relative;
+		border: 1px dashed #FFFFFF;
 
 		.iconfont {
 			font-size: 60rpx;
@@ -242,13 +246,16 @@
 		}
 
 		.icon-clear {
+			width: 40rpx;
+			height: 40rpx;
+			line-height: 40rpx;
 			position: absolute;
 			top: 12rpx;
 			right: 12rpx;
 			font-size: 36rpx;
 			z-index: 2;
 
-			&.hide {
+			&.app-del {
 				display: none;
 			}
 		}
@@ -257,14 +264,11 @@
 	.movable-view {
 		opacity: 0.8;
 		z-index: 999;
-		width: 100rpx;
-		height: 160rpx;
 		box-sizing: border-box;
 		text-align: center;
 		display: flex;
 		flex-direction: column;
 		justify-content: space-around;
-		padding: 20rpx;
 
 		.iconfont {
 			font-size: 60rpx;
