@@ -11,7 +11,7 @@
 					<text :class="['iconfont', appItem.appIcon]"></text>
 					<text class="app-name">{{appItem.appName}}</text>
 					<text class="iconfont icon-clear"
-					 :class="deleteAppID === appItem.appId && showDelete ? '' : 'hide'"
+					 :class="deleteAppID === appItem.appId && deleteShow ? '' : 'hide'"
 					 @tap="deleteAppItem(index)"></text>
 				</view>
 				<view class="app-li text-blue" @tap="addAppItem">
@@ -30,10 +30,6 @@
 				<text class="app-name">{{touchItem.appName}}</text>
 			</movable-view>
 		</movable-area>
-		<!-- 新增模态 -->
-		<!-- <Modal ref="addAppItem" title="添加" @confirm="confirm">
-			<InputUnify ref="addAppInput" title="名字" placeholder="请输入应用名"></InputUnify>
-		</Modal> -->
 	</view>
 </template>
 
@@ -51,15 +47,15 @@
 		data() {
 			return {
 				DataList: this.listData, //缓存props，(不建议直接修改props)
+				touchIndex: 0, //被移动index
+				touchItem: '', //备份被移动item数据
 				deleteAppID: null, //触发删除的itemID
-				showDelete: false, //删除按钮状态
+				deleteShow: false, //删除按钮状态
 				IsDeleteAfter: false, //是否为删除后
 				IsCancelDelete: false, //是否为取消后
 				moviewShow: false, //滑块状态
 				areaBoxInfo: null, //保存滑动区域盒子dom信息
 				inBoxXY: {}, //鼠标在item中的坐标
-				touchIndex: 0, //被移动index
-				touchItem: '', //备份被移动item数据
 				moveX: 0, //相对滑动盒子的坐标
 				moveY: 0, //相对滑动盒子的坐标
 				hoverClass: '',
@@ -83,56 +79,47 @@
 		methods: {
 			// 添加
 			addAppItem() {
-				this.$refs.addAppItem.ModalStatus()
-			},
-			confirm() {
 				let appItem = {
 					appId: this.DataList.length + 1,
-					appIcon: "cuIcon-pic",
-					appName: this.$refs.addAppInput.value,
+					appIcon: "icon-geren",
+					appName: "员工",
 					appLink: ""
 				};
 				this.DataList.push(appItem);
-				this.$refs.addAppInput.resetVal();
 				this.$nextTick(() => {
 					this.resetListDom()
 				});
 			},
 			AppLi_touchstart(index, event) {
+				this.touchIndex = index;
 				this.touchItem = this.DataList[index];
 				// 行为判断
-				if (this.showDelete) {
+				if (this.deleteShow) {
 					// 取消删除
 					if (this.touchItem.appId != this.deleteAppID) {
 						this.deleteAppID = null;
-						this.showDelete = false;
+						this.deleteShow = false;
 						this.IsCancelDelete = true;
 					}
-					// 删除
-					// if(this.touchItem.appId==this.deleteAppID){
-					// 	this.deleteAppItem(index)
-					// }
 				}
-				// 过时触发（touchEnd中清除此定时器）
+				// 过时触发（长按事件），touchEnd中清除此定时器
 				this.Loop = setTimeout(() => {
 					// 触感反馈（安卓上是150毫秒，ios无短触控反馈）
 					uni.vibrateShort();
-					this.showDelete = true;
+					this.deleteShow = true;
 					this.deleteAppID = this.touchItem.appId;
 					// 拖动逻辑
 					//显示可移动方块
 					this.moviewShow = true
-					//保存当前所选择的索引
-					this.touchIndex = index;
 					// 设置可移动方块的初始位置为当前所选中图片的位置坐标
-					this.moveX = this.DataList[index].x;
-					this.moveY = this.DataList[index].y;
+					this.moveX = this.touchItem.x;
+					this.moveY = this.touchItem.y;
 					var x = event.changedTouches[0].clientX - this.areaBoxInfo.left;
 					var y = event.changedTouches[0].clientY - this.areaBoxInfo.top;
 					// 保存鼠标在图片内的坐标
 					this.inBoxXY = {
-						x: x - this.DataList[index].x,
-						y: y - this.DataList[index].y,
+						x: x - this.touchItem.x,
+						y: y - this.touchItem.y,
 					}
 				}, 500);
 			},
@@ -142,12 +129,10 @@
 					clearTimeout(this.Loop);
 					this.Loop = null;
 				}
-				if (this.showDelete) {
-					let areaBoxTop = this.areaBoxInfo.top;
-					let areaBoxLeft = this.areaBoxInfo.left;
+				if (this.deleteShow) {
 					//重置为以拖拽盒子左上角为坐标原点
-					var x = event.changedTouches[0].clientX - areaBoxLeft;
-					var y = event.changedTouches[0].clientY - areaBoxTop;
+					var x = event.changedTouches[0].clientX - this.areaBoxInfo.left;
+					var y = event.changedTouches[0].clientY - this.areaBoxInfo.top;
 					this.moveX = x - this.inBoxXY.x;
 					this.moveY = y - this.inBoxXY.y;
 
@@ -167,17 +152,18 @@
 				}
 			},
 			AppLi_touchend(index) {
-				if (!this.showDelete && !this.IsDeleteAfter && !this.IsCancelDelete) {
-					this.getInto(this.touchItem.appName)
+				if (!this.deleteShow && !this.IsDeleteAfter && !this.IsCancelDelete) {
+					console.log("this.touchItem: " + JSON.stringify(this.touchItem));
+					// this.getInto(this.touchItem.appName)
 				} else {
 					// 为下次getInto清除状态
 					this.IsDeleteAfter = false;
 					this.IsCancelDelete = false;
 					// 移动结束隐藏可移动方块
-					if (this.hoverClassIndex != null && this.touchIndex != this.hoverClassIndex) {
+					if (this.hoverClassIndex && this.touchIndex != this.hoverClassIndex) {
 						this.$set(this.DataList, this.touchIndex, this.DataList[this.hoverClassIndex]);
 						this.$set(this.DataList, this.hoverClassIndex, this.touchItem);
-						this.showDelete = false;
+						this.deleteShow = false;
 						this.resetListDom()
 					}
 					this.touchItem = ""
@@ -194,16 +180,9 @@
 			},
 			deleteAppItem(index) {
 				this.DataList.splice(index, 1)
-				this.showDelete = false;
-				this.checkIndex = null;
+				this.deleteShow = false;
 				this.IsDeleteAfter = true;
 				this.resetListDom()
-			},
-			getInto(appName) {
-				uni.showToast({
-					title: "进入" + appName,
-					icon: "none"
-				})
 			},
 			resetListDom() {
 				let _this = this;
