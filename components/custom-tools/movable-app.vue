@@ -71,6 +71,8 @@
 		methods: {
 			// 添加
 			addAppItem() {
+				this.deleteShow = false;
+				this.moviewShow = false;
 				let appItem = {
 					appId: this.addAppID + 1,
 					appIcon: "icon-geren",
@@ -150,7 +152,7 @@
 					this.$emit("clickItem", index);
 				} else {
 					// 移动结束隐藏可移动方块
-					if (this.hoverClassIndex && this.touchIndex != this.hoverClassIndex) {
+					if (this.hoverClassIndex != null && this.touchIndex != this.hoverClassIndex) {
 						this.$set(this.DataList, this.touchIndex, this.DataList[this.hoverClassIndex]);
 						this.$set(this.DataList, this.hoverClassIndex, this.touchItem);
 						this.resetListDom()
@@ -161,6 +163,10 @@
 					this.hoverClass = ""
 					this.hoverClassIndex = null;
 				}
+				this.moveW = 0;
+				this.moveH = 0;
+				this.moveX = this.touchItem.x;
+				this.moveY = this.touchItem.y;
 
 				// 每次endTouch清除startTouch删除按钮定时器
 				if (this.Loop) {
