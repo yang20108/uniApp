@@ -4,6 +4,16 @@
  */
 .css-style {
 	/**
+	 * vue页面在苹果手机上设置ios的弹性滚动
+	 * page {
+	 * 	height: 100%;
+	 * 	width: 100%;
+	 * 	overflow: hidden;
+	 * 	position: fixed; 
+	 * }
+	 */
+
+	/**
 	 * 字体多余样式
 	 * overflow:hidden多余部分隐藏，overlay不隐藏滑动
 	 */

@@ -19,6 +19,7 @@
 			return {
 				title: 'Hello',
 				list: [
+					{name: 'editor',content: '富文本编辑器',url: '../myapp/editor'},
 					{name: '功能拖动',content: '',url: '../myapp/movable'},
 					{name: 'scrollBar',content: '切换动画',url: '../myapp/scrollBar'},
 					{name: '图片预览',content: '',url: '../myapp/yulan'},
